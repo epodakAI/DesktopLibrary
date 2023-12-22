@@ -93,9 +93,14 @@ def create_category_folder(path):
     :return: 类别文件夹全路径
     """
     dir_with_name = fix_category_path(path)
-    if not os.path.exists(dir_with_name):
-        os.makedirs(dir_with_name)
-    return dir_with_name
+    try:
+        if not os.path.exists(dir_with_name):
+            os.makedirs(dir_with_name)
+        return dir_with_name
+    except OSError as e:
+        print(f"Error creating directory {dir_with_name}: {e}")
+        return None
+
 
 
 def create_hierarchy(dir, codes_arr):
